@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CoreEmpty.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,22 @@ namespace CoreEmpty.Controllers
 {
     //[Route("[controller]/[action]")]
     public class HomeController : Controller
-    { 
-        public string Index()
+    {
+        private INoodleRepository _noodleRepository;
+
+
+        public HomeController(INoodleRepository noodleRepository)
         {
-            return "hello from home";
+            _noodleRepository = noodleRepository;
         }
 
-       
+        public IActionResult Index()
+        {
+            var noodels = _noodleRepository.GetAllNoodles();
+            return View(noodels);
+        }
+
+
         public string About()
         {
             return "string about";

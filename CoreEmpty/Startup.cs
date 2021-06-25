@@ -1,3 +1,4 @@
+using CoreEmpty.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,11 @@ namespace CoreEmpty
         {
 
             services.AddMvc();
+            services.AddTransient<INoodleRepository, MockNoodleRepository>();
+            //µ¥Àý
+            //services.AddSingleton<INoodleRepository, MockNoodleRepository>();
+            //¸´ÔÓ
+            //services.AddScoped<INoodleRepository, MockNoodleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,8 +67,8 @@ namespace CoreEmpty
                 //endpoints.MapControllers();
 
                 endpoints.MapControllerRoute(
-                    name:"default",
-                    pattern:"{controller=Home}/{action=Index}/{id?}"
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
                     );
 
                 //endpoints.MapGet("/test", async context =>
