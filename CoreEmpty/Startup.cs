@@ -8,11 +8,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace CoreEmpty
 {
     public class Startup
     {
+
+        public IConfiguration Configuration { get; set; }
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         /// <summary>
@@ -21,9 +30,12 @@ namespace CoreEmpty
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
-            services.AddTransient<INoodleRepository, MockNoodleRepository>();
+            services.AddTransient<INoodleRepository, NoodleRepository>();
+            services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+
+
             //µ¥Àý
             //services.AddSingleton<INoodleRepository, MockNoodleRepository>();
             //¸´ÔÓ

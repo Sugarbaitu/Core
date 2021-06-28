@@ -7,8 +7,6 @@ namespace CoreEmpty.Models
 {
     public class MockNoodleRepository : INoodleRepository
     {
-
-
         private List<Noodle> _noodles;
 
         public MockNoodleRepository()
